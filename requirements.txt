@@ -2,4 +2,3 @@ streamlit
 openai
 requests
 pathlib
-os
