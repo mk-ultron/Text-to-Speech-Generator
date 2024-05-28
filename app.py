@@ -24,7 +24,8 @@ def text_to_speech(text, filename, voice="alloy"):
     return filename
 
 # Set the title of the Streamlit app
-st.title("Convert & Download Text to Speech in .mp3")
+st.title("Online Text-to-Speech Reader")
+st.subheader("Copy any text to convert to speech using Open AI's TTS Audio API. You can also download the result in .mp3 format")
 
 # Text area for user input
 text = st.text_area("Enter the text you want to convert to speech:")
