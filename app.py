@@ -1,15 +1,16 @@
 import streamlit as st
 import openai
 from pathlib import Path
-import requests
-import os
 
 # Load the OpenAI API key from Streamlit's secrets
-openai.api_key = st.secrets["api_keys"]["openai"]
+api_key = st.secrets["api_keys"]["openai"]
 
-def text_to_speech(text, filename, voice="nova"):
+def text_to_speech(text, filename, voice="alloy"):
+    # Initialize the OpenAI client with the API key
+    openai.api_key = api_key
+    client = openai.OpenAI(api_key=api_key)
+    
     # Make a request to OpenAI's TTS API to convert text to speech
-    client = openai.OpenAI()
     response = client.audio.speech.create(
         model="tts-1",
         voice=voice,
