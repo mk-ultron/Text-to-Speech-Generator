@@ -1,5 +1,6 @@
 import streamlit as st
 import openai
+import requests
 from pathlib import Path
 
 # Load the OpenAI API key from Streamlit's secrets
@@ -8,21 +9,25 @@ api_key = st.secrets["api_keys"]["openai"]
 def text_to_speech(text, filename, voice="alloy"):
     # Initialize the OpenAI client with the API key
     openai.api_key = api_key
-    client = openai.OpenAI(api_key=api_key)
     
     # Make a request to OpenAI's TTS API to convert text to speech
-    response = client.audio.speech.create(
+    response = openai.Audio.create(
         model="tts-1",
         voice=voice,
         input=text
-    ).with_streaming_response()
+    )
     
-    # Save the audio content to a file
+    # Extract the audio URL from the response
+    audio_url = response['data'][0]['url']
+    
+    # Stream the audio content and save it to a file
     speech_file_path = Path(filename)
-    with open(speech_file_path, 'wb') as audio_file:
-        for chunk in response:
-            if chunk:
-                audio_file.write(chunk)
+    with requests.get(audio_url, stream=True) as r:
+        r.raise_for_status()
+        with open(speech_file_path, 'wb') as audio_file:
+            for chunk in r.iter_content(chunk_size=8192):
+                if chunk:
+                    audio_file.write(chunk)
     
     return filename
 
