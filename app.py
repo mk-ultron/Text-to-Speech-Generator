@@ -15,11 +15,14 @@ def text_to_speech(text, filename, voice="alloy"):
         model="tts-1",
         voice=voice,
         input=text
-    )
+    ).with_streaming_response()
     
     # Save the audio content to a file
     speech_file_path = Path(filename)
-    response.stream_to_file(speech_file_path)
+    with open(speech_file_path, 'wb') as audio_file:
+        for chunk in response:
+            if chunk:
+                audio_file.write(chunk)
     
     return filename
 
