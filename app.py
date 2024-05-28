@@ -17,6 +17,11 @@ def text_to_speech(text, filename, voice="alloy"):
         voice=voice,
         input=text
     )
+# Save the audio content to a file
+    speech_file_path = Path(filename)
+    response.stream_to_file(speech_file_path)
+    
+    return filename
 
 # HTML Template for the stories
 html_template = """
