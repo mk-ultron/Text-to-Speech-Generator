@@ -50,3 +50,6 @@ if st.button("Convert to Speech"):
     else:
         # Show a warning if no text is entered
         st.warning("Please enter some text to convert.")
+        
+# Link back to the HTML web app
+st.markdown("[Back to Fast AI Fiction](https://mk-ultron.github.io/ebook-reader/)")
