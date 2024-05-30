@@ -35,18 +35,20 @@ voice = st.selectbox("Choose a voice", ["alloy", "echo", "fable", "onyx", "nova"
 if st.button("Convert to Speech"):
     if text:
         # If text is provided, convert it to speech and save it as an mp3 file
-        filename = "output.mp3"
-        file_path = text_to_speech(text, filename, voice)
-        # Display the audio player with the generated mp3 file
-        st.audio(file_path, format='audio/mp3')
-        # Provide a download button for the mp3 file
-        with open(file_path, "rb") as file:
-            st.download_button(
-                label="Download MP3",  # Label for the download button
-                data=file,             # Data to be downloaded
-                file_name=filename,    # Name of the file to be downloaded
-                mime="audio/mpeg"      # MIME type for the file
-            )
+        # Show a loading animation
+        with st.spinner('Generating audio...'):
+            filename = "output.mp3"
+            file_path = text_to_speech(text, filename, voice)
+            # Display the audio player with the generated mp3 file
+            st.audio(file_path, format='audio/mp3')
+            # Provide a download button for the mp3 file
+            with open(file_path, "rb") as file:
+                st.download_button(
+                    label="Download MP3",  # Label for the download button
+                    data=file,             # Data to be downloaded
+                    file_name=filename,    # Name of the file to be downloaded
+                    mime="audio/mpeg"      # MIME type for the file
+                )
     else:
         # Show a warning if no text is entered
         st.warning("Please enter some text to convert.")
