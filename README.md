@@ -1,6 +1,3 @@
-Here is a README.md file for your Python app using Streamlit and OpenAI:
-
-```markdown
 # Online Text-to-Speech Reader
 
 This is an online text-to-speech reader built with Streamlit and OpenAI's TTS Audio API. The application allows you to convert text into speech and download the result in .mp3 format.
