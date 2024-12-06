@@ -5,7 +5,7 @@ from pathlib import Path
 # Load the OpenAI API key from Streamlit's secrets
 api_key = st.secrets["api_keys"]["openai"]
 
-def text_to_speech(text, filename, voice="alloy"):
+def text_to_speech(text, filename, voice="nova"):
     # Initialize the OpenAI client with the API key
     openai.api_key = api_key
     client = openai.OpenAI(api_key=api_key)
@@ -53,5 +53,3 @@ if st.button("Convert to Speech"):
         # Show a warning if no text is entered
         st.warning("Please enter some text to convert.")
         
-# Link back to the HTML web app
-st.markdown("[Back to Fast AI Fiction](https://mk-ultron.github.io/ebook-reader/)")
